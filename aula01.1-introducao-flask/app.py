@@ -14,7 +14,21 @@ def home():  # funcao que sera executada pela rota
 
 @app.route('/games')
 def games():
-    return render_template('games.html')
+    title = 'The Witcher 3: Wild Hunt'
+    year = 2015
+    category = 'RPG'
+    # array em python
+    players = ['arthur', 'amanda']
+    # dicionario em python
+    console = {'name': 'Playstation 5', 'maker': 'Sony', 'year': 2020}
+    return render_template('games.html',
+                           title=title,
+                           year=year,
+                           category=category,
+                           players=players, 
+                           console=console)
+
+
 # se for executado diretamente pelo interpretador
 if __name__ == '__main__':
     # iniciando o servidor
