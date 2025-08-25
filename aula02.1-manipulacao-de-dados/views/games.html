@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The games</title>
+  </head>
+  <body>
+    <h1>Está é a pagina de games</h1>
+    <h3>Jogo em destaque:</h3>
+
+    <ul>
+      <li><strong>{{title}}</strong></li>
+      <li><strong>{{year}}</strong></li>
+      <li><strong>{{category}}</strong></li>
+    </ul>
+
+    <p>O jogo {{title}} tem {{2025 - year}} anos</p>
+
+    <h3>Top players:</h3>
+    <!-- Estrutura FOR em Jinja -->
+    <ol>
+      {% for player in players %}
+        <li>{{player}}</li>
+      {%endfor%}
+    </ol>
+    <h4>Console: </h4>
+    {% for key, value in console.items() %}
+        {{key}} : {{value}} <br>
+    {%endfor%}
+    <hr />
+  </body>
+</html>
