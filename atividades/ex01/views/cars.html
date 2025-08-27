@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Página de carros participantes</h1>
+<h2>Carros:</h2>
+<table>
+  <tr>
+    <th>model</th>
+    <th>year</th>
+    <th>manufacturer</th>
+    <th>power</th>
+  </tr>
+  {% for car in cars %}
+  <tr>
+    <td>{{car.model}}</td>
+    <td>{{car.year}}</td>
+    <td>{{car.manufacturer}}</td>
+    <td>{{car.power}}</td>
+  </tr>
+  {% endfor %}
+</table>
+<hr />
+<h3><p>Cadastre seu carro:</p></h3>
+<form action="{{url_for('newCar')}}" method="post">
+  <label for="model">Modelo:</label>
+  <input type="text" name="model" id="" />
+  <label for="year">Ano:</label>
+  <input type="text" name="year" id="" />
+  <label for="manufacturer">Fabricante:</label>
+  <input type="text" name="manufacturer" id="" />
+  <label for="power">Potência:</label>
+  <input type="text" name="power" id="" />
+  <input type="submit" name="" value="Cadastrar" id="" />
+
+  {% endblock content %}
+</form>

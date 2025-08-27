@@ -30,7 +30,7 @@ def init_app(app):
     cars = [{}]
 
     @app.route('/cars', methods=['GET', 'POST'])
-    def cars():
+    def newCar():
         if request.method == 'POST':
             cars.append({
                 'model': request.form.get('model'),
@@ -39,6 +39,6 @@ def init_app(app):
                 'category': request.form.get('category'),
                 'power': request.form.get('power')
             })
-            return redirect(url_for('cars'))
+            return redirect(url_for('newCar'))
         
         return render_template('cars.html', cars=cars)
