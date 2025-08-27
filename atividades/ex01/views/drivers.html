@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Pagina de pilotos participantes</h1>
+<h2>Pilotos:</h2>
+<ol>
+  {% for driver in drivers %}
+  <li>{{driver}}</li>
+  {% endfor %}
+</ol>
+<hr />
+
+<h3>
+  <p>Inscrições para a corrida:</p>
+</h3>
+<form action="{{url_for('newDriver')}}" method="post">
+  <label for="Name">Nome:</label>
+  <input type="text" name="name" id="" />
+  <input type="submit" name="" value="Cadastrar" id="" />
+</form>
+<br />
+
+{% endblock content %}

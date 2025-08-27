@@ -8,18 +8,37 @@ from flask import render_template, request, redirect, url_for
 
 def init_app(app):
     # inclusao e exibicao de dados na pagina atraves de uma lista
-    racers = ['Senna', 'Prost', 'Verstappen']
+    drivers = ['Senna', 'Prost', 'Verstappen']
 
     @app.route('/')
     def index():
         return render_template('index.html')
     
-    # rota para adicionar e exibir corredores
-    @app.rouute('/racers', methods=['GET', 'POST'])
-    def racers():
+    # rota para adicionar e exibir corredores em forma de lista
+    @app.route('/drivers', methods=['GET', 'POST'])
+    def newDriver():
         if request.method == 'POST':
-            if request.form.get('racer'):
-                racers.append(request.form.get('racer'))
-                return redirect(url_for('racers'))
+            driverName = request.form.get('name')
+            if driverName:
+                drivers.append(driverName)
+                return redirect(url_for('newDriver'))
 
-        return render_template('racers.html', racers=racers)
+        return render_template('drivers.html', drivers=drivers)
+
+
+    # inclusao de dados atraves de um dicionario e exibicao em tabela
+    cars = [{}]
+
+    @app.route('/cars', methods=['GET', 'POST'])
+    def cars():
+        if request.method == 'POST':
+            cars.append({
+                'model': request.form.get('model'),
+                'year': request.form.get('year'),
+                'manufacturer': request.form.get('manufacturer'),    
+                'category': request.form.get('category'),
+                'power': request.form.get('power')
+            })
+            return redirect(url_for('cars'))
+        
+        return render_template('cars.html', cars=cars)
