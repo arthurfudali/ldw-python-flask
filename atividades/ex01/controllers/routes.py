@@ -8,7 +8,8 @@ from flask import render_template, request, redirect, url_for
 
 def init_app(app):
     # inclusao e exibicao de dados na pagina atraves de uma lista
-    drivers = ['Senna', 'Prost', 'Verstappen']
+    #drivers = ['Senna', 'Prost', 'Verstappen']
+    drivers = []
 
     @app.route('/')
     def index():

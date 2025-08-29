@@ -1,21 +1,43 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Pagina de pilotos participantes</h1>
-<h2>Pilotos:</h2>
-<ol>
-  {% for driver in drivers %}
-  <li>{{driver}}</li>
-  {% endfor %}
-</ol>
-<hr />
+{% extends 'base.html' %}
+{% block content %}
 
-<h3>
-  <p>Inscrições para a corrida:</p>
-</h3>
-<form action="{{url_for('newDriver')}}" method="post">
-  <label for="Name">Nome:</label>
-  <input type="text" name="name" id="" />
-  <input type="submit" name="" value="Cadastrar" id="" />
-</form>
-<br />
+<div class="container my-5">
+
+  <!-- Título -->
+  <h1 class="fw-bold text-center text-danger mb-4">🏎️ Pilotos Participantes</h1>
+
+  <!-- Lista de pilotos -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-header bg-dark text-white">
+      <h2 class="h5 mb-0">Pilotos cadastrados</h2>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for driver in drivers %}
+        <li class="list-group-item">{{ driver }}</li>
+      {% else %}
+        <li class="list-group-item text-muted fst-italic">Nenhum piloto cadastrado ainda.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Formulário -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-danger text-white">
+      <h3 class="h5 mb-0">Inscrições para a corrida</h3>
+    </div>
+    <div class="card-body">
+      <form action="{{ url_for('newDriver') }}" method="post" class="row g-3">
+        <div class="col-md-8">
+          <label for="name" class="form-label">Nome do piloto</label>
+          <input type="text" class="form-control" name="name" id="name" placeholder="Digite o nome" required>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <button type="submit" class="btn btn-danger w-100">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
 
 {% endblock content %}
