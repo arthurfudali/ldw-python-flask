@@ -5,8 +5,10 @@
   <div class="index-bg d-flex justify-content-center align-items-center text-white">
     <div class="text-center bg-dark bg-opacity-50 p-5 rounded">
       <h2 class="fw-bold">Bem-vindo ao FATEC Racing Club 🏁</h2>
-      <p class="lead">Cadastre pilotos e carros e prepare-se para a corrida!</p>
+      <p class="lead">Cadastre-se junto do seu carro e venha correr! </p>
       <a href="{{ url_for('newDriver') }}" class="btn btn-danger btn-lg mt-3">Cadastrar Piloto</a>
+      <br>
+      <a href="{{ url_for('newCar') }}" class="btn btn-danger btn-lg mt-3">Cadastrar Carro</a>
     </div>
   </div>
 {% endblock content %}
