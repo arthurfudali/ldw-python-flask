@@ -1,4 +1,6 @@
 from flask import render_template, request, redirect, url_for
+import urllib #envia req a uma url
+import json # faz a conversao de dados
 
 
 def init_app(app):
@@ -48,3 +50,12 @@ def init_app(app):
                 return redirect(url_for('newGame'))
 
         return render_template('newGame.html', gamelist=gamelist)
+    
+    
+    @app.route('/apigames', methods=['GET', 'POST'])
+    def apigames():
+        url = 'https://www.freetogame.com/api/games'
+        response = urllib.request.urlopen(url)
+        data = response.read()
+        gamesList = json.loads(data)
+        return render_template('apigames.html', gamesList=gamesList)
