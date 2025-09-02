@@ -1,0 +1,8 @@
+.index-bg {
+  background-image: url("../imgs/m3gtr.jpg"); 
+  background-size: cover;       /* cobre toda a tela */
+  background-position: center;  /* centraliza */
+  background-attachment: fixed; /* efeito parallax leve */
+  min-height: 80vh;             /* altura mínima */
+  border-radius: 10px;          /* opcional, bordas arredondadas */
+}
