@@ -45,7 +45,7 @@ def init_app(app):
         return render_template('cars.html', cars=cars)
 
     @app.route('/apiraces', methods=['GET'])
-    def apiraces():
+    def apiRaces():
         url = "https://f1-motorsport-data.p.rapidapi.com/schedule"
         querystring = {"year": "2025"}
         headers = {
