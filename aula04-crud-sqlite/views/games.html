@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Está é a pagina de games</h1>
+<h3>Jogo em destaque:</h3>
+
+<ul>
+  <li><strong>{{title}}</strong></li>
+  <li><strong>{{year}}</strong></li>
+  <li><strong>{{category}}</strong></li>
+</ul>
+
+<p>O jogo {{title}} tem {{2025 - year}} anos</p>
+
+<h3>Esta sendo jogado por:</h3>
+<!-- Estrutura FOR em Jinja -->
+<ol>
+  {% for player in players %}
+  <li>{{player}}</li>
+  {%endfor%}
+</ol>
+<hr />
+
+<!-- envia os dados para a view function que vai receber os dados (games) -->
+<form action="{{url_for('games')}}" method="post">
+  <label for="player">Jogador:</label>
+  <input type="text" id="player" name="player" />
+  <input type="submit" value="entrar" />
+</form>
+<hr />
+<h4>Console:</h4>
+{% for key, value in console.items() %} {{key}} : {{value}} <br />
+{%endfor%}
+<hr />
+{% endblock content %}

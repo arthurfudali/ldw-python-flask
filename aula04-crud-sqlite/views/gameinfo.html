@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container p-3" style="background-color: aliceblue">
+  <div class="row">
+    <div class="col-md-6 m-auto">
+      <a href="{{url_for('apigames')}}" class="btn btn-dark">Voltar</a>
+      <div class="card">
+        <img
+          src="{{gameInfo.thumbnail}}"
+          alt="Imagem do jogo"
+          class="card-img-top"
+        />
+      </div>
+      <div class="card-body">
+        <h5>{{gameInfo.title}}</h5>
+        <p>Genero: {{gameInfo.genre}}</p>
+        <p>Plataforma: {{gameInfo.platform}}</p>
+        <p>Descricao: {{gameInfo.short_description}}</p>
+        <p>Editor: {{gameInfo.publisher}}</p>
+        <p>Lançamento: {{gameInfo.release_date}}</p>
+        <a href="{{gameInfo.freetogame_profile_url}}" class="btn btn-danger"
+          >Jogar agora!</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
