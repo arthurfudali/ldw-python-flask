@@ -47,7 +47,7 @@ def init_app(app):
     @app.route('/apiraces', methods=['GET'])
     def apiraces():
         url = "https://f1-motorsport-data.p.rapidapi.com/schedule"
-        querystring = {"year": "2023"}
+        querystring = {"year": "2025"}
         headers = {
             "x-rapidapi-key": "1490a9548emsh39f2cc65533a444p1345d7jsn04ae1079307e",
             "x-rapidapi-host": "f1-motorsport-data.p.rapidapi.com"
