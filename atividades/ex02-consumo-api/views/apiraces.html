@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1>Corridas de F1</h1>
+<table border="1">
+  <tr>
+    <th>Data</th>
+    <th>Grande Prêmio</th>
+    <th>Circuito</th>
+    <th>Status</th>
+    <th>Vencedor</th>
+  </tr>
+  {% for race in races %}
+  <tr>
+    <td>{{ race.startDate[:10] }}</td>
+    <td>{{ race.gPrx }}</td>
+    <td>{{ race.crct }}</td>
+    <td>{{ race.status.detail }}</td>
+    <td>{{ race.winner if race.winner else "N/A" }}</td>
+  </tr>
+  {% endfor %}
+</table>
 
-{{races}}
 
 {% endblock content %}

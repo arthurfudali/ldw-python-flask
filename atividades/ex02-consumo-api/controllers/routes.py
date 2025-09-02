@@ -53,6 +53,14 @@ def init_app(app):
             "x-rapidapi-host": "f1-motorsport-data.p.rapidapi.com"
         }
         response = requests.get(url, headers=headers, params=querystring)
-        races = response.json()
-        return render_template('apiraces.html', races=races)
+        races_data = response.json()
+        
+        # "flatten" o dicionário em uma lista de corridas
+        races = []
+        for date, race_list in races_data.items():
+            for race in race_list:
+                race["dateKey"] = date
+                races.append(race)
+
+        return render_template("apiraces.html", races=races)
         
