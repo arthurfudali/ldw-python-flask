@@ -1,11 +1,14 @@
 from flask import render_template, request, redirect, url_for
-import requests
+import requests, os
+from dotenv import load_dotenv
 
 """ Essa aplicação deve possuir 3 rotas.
 - Uma página inicial com uma navbar direcionando para outras rotas.
 - Em uma dessas rotas a aplicação deve permitir a inclusão e exibição de dados na página através de uma lista.
 - Em outra seção deve ser permitido a inclusão de dados através de um dicionário e a exibição deve ser feita através de uma tabela. """
 
+load_dotenv()
+api_key = os.getenv("KEY")
 
 def init_app(app):
     # inclusao e exibicao de dados na pagina atraves de uma lista
@@ -49,7 +52,7 @@ def init_app(app):
         url = "https://f1-motorsport-data.p.rapidapi.com/schedule"
         querystring = {"year": "2025"}
         headers = {
-            "x-rapidapi-key": "1490a9548emsh39f2cc65533a444p1345d7jsn04ae1079307e",
+            "x-rapidapi-key": api_key,
             "x-rapidapi-host": "f1-motorsport-data.p.rapidapi.com"
         }
         response = requests.get(url, headers=headers, params=querystring)
