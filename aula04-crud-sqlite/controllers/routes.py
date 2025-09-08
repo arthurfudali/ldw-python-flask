@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for
 import urllib  # envia req a uma url
 import json  # faz a conversao de dados
+from models.database import Game, db
 
 
 def init_app(app):
@@ -64,8 +65,26 @@ def init_app(app):
             gameInfo = gamesDict.get(id)
 
             if gameInfo:
-                    return render_template('gameinfo.html', gameInfo=gameInfo)
+                return render_template('gameinfo.html', gameInfo=gameInfo)
             else:
-                    return f'Jogo nao encontrado'
-        else:   
+                return f'Jogo nao encontrado'
+        else:
             return render_template('apigames.html', gamesList=gamesList)
+
+    @app.route('/estoque', methods=['GET', 'POST'])
+    @app.route('/estoque/delete/<int:id>')
+    def estoque():
+        if id:
+            game = Game.query.get(id)
+            db.session.delete(game)
+            db.session.commit()
+        
+        gamesEstoque = Game.query.all()
+        if request.method == 'POST':
+            newGame = Game(request.form['title'], request.form['year'], request.form['category'],
+                           request.form['platform'], request.form['price'], request.form['quantity'])
+            db.session.add(newGame)
+            db.session.commit()
+            return redirect(url_for('estoques'))
+
+        return render_template('estoque.html', gamesEstoque=gamesEstoque)
