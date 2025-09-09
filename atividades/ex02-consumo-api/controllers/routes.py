@@ -70,5 +70,5 @@ def init_app(app):
                 race["dateKey"] = date
                 races.append(race)
 
-        return render_template("apiraces.html", races=races, year=int(year))
+        return render_template("apiraces.html", races=races, year=int(year), curYear = curYear)
         

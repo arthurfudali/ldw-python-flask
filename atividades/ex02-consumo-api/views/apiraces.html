@@ -18,7 +18,7 @@
       </div>
       <div class="col-auto">
         <select name="year" class="form-select">
-          {% for y in range(2020, 2026) %}
+          {% for y in range((curYear-5), (curYear+1)) %}
             <option value="{{ y }}" {% if y == year %}selected{% endif %}>
               {{ y }}
             </option>
