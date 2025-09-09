@@ -88,3 +88,10 @@ def init_app(app):
             return redirect(url_for('estoques'))
 
         return render_template('estoque.html', gamesEstoque=gamesEstoque)
+    
+    
+    # Rota de edicao    
+    @app.route('/estoque/edit/<int:id>', methods=['GET', 'POST'])
+    def edit(id):
+        game = Game.query.get(id)
+        return render_template('editgame.html', game=game)
