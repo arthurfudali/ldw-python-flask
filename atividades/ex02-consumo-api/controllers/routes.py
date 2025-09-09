@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for
 import requests, os
 from dotenv import load_dotenv
+import datetime
 
 """ Essa aplicação deve possuir 3 rotas.
 - Uma página inicial com uma navbar direcionando para outras rotas.
@@ -49,8 +50,12 @@ def init_app(app):
 
     @app.route('/apiraces', methods=['GET'])
     def apiRaces():
+        # pega o ano atual
+        curYear = datetime.date.today().year
+        # pega o ano mas tambem o ano atual como default
+        year = request.args.get("year", curYear)
         url = "https://f1-motorsport-data.p.rapidapi.com/schedule"
-        querystring = {"year": "2025"}
+        querystring = {"year": year}
         headers = {
             "x-rapidapi-key": api_key,
             "x-rapidapi-host": "f1-motorsport-data.p.rapidapi.com"
@@ -65,5 +70,5 @@ def init_app(app):
                 race["dateKey"] = date
                 races.append(race)
 
-        return render_template("apiraces.html", races=races)
+        return render_template("apiraces.html", races=races, year=int(year))
         
