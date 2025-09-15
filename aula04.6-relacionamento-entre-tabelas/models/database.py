@@ -22,9 +22,14 @@ class Game(db.Model):
     categoria = db.Column(db.String(150))
     preco = db.Column(db.Float)
     quantidade = db.Column(db.Integer)
-    console_id = db.Column(db.Integer, db.ForeignKey('console.id'))
+    console_id = db.Column(db.Integer, db.ForeignKey('console.id')) #tabela console, atributo id
     
+    # definindo o relacionamento
+    # Console é o nome do model
     console = db.relationship('Console', backref=db.backref('games', lazy=True))
+    
+    """ console_id = db.Column(db.Integer, db.ForeignKey('console.id'))
+    console = db.relationship('Console', backref=db.backref('games', lazy=True)) """
 
     def __init__(self, titulo, ano, categoria, preco, quantidade, console_id):
         self.titulo = titulo
@@ -32,4 +37,4 @@ class Game(db.Model):
         self.categoria = categoria
         self.preco = preco
         self.quantidade = quantidade
-        self.console_id = console_id
+        self.console_id = console_id 

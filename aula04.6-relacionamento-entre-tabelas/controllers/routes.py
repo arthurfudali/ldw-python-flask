@@ -64,8 +64,11 @@ def init_app(app):
             # Faz um SELECT no banco a partir da pagina informada (page)
             # Filtrando os registro de 3 em 3 (per_page)
             games_page = Game.query.paginate(page=page, per_page=per_page)
+            
+            # Seleciona os consoles
+            consoles = Console.query.all()
 
-            return render_template('gamesestoque.html', gamesestoque=games_page)
+            return render_template('gamesestoque.html', gamesestoque=games_page, consoles=consoles)
 
     # CRUD GAMES - EDIÇÃO
     @app.route('/games/edit/<int:id>', methods=['GET', 'POST'])
