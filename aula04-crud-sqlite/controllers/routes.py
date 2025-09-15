@@ -73,21 +73,30 @@ def init_app(app):
 
     @app.route('/estoque', methods=['GET', 'POST'])
     @app.route('/estoque/delete/<int:id>')
-    def estoque():
+    def estoque(id=None):
         if id:
             game = Game.query.get(id)
             db.session.delete(game)
             db.session.commit()
+            return redirect(url_for('estoque'))
         
-        gamesEstoque = Game.query.all()
+        
         if request.method == 'POST':
             newGame = Game(request.form['title'], request.form['year'], request.form['category'],
                            request.form['platform'], request.form['price'], request.form['quantity'])
             db.session.add(newGame)
             db.session.commit()
-            return redirect(url_for('estoques'))
-
-        return render_template('estoque.html', gamesEstoque=gamesEstoque)
+            return redirect(url_for('estoque'))
+        else:
+            # paginacao
+            # captura o valor da pagina que foi passado pelo get
+            page = request.args.get('page', 1, type=int)
+            per_page = 3 # define a quantidade de registros por pagina
+            
+            # seleciona todos os registros com query all
+            # query.paginate faz a paginacao de acordo com os parametros fornecidos
+            gamesEstoque = Game.query.paginate(page=page, per_page=per_page)
+            return render_template('estoque.html', gamesEstoque=gamesEstoque)
     
     
     # Rota de edicao    

@@ -54,7 +54,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for game in gamesEstoque %}
+    {% for game in gamesEstoque.items %}
     <tr>
       <td>{{game.title}}</td>
       <td>{{game.year}}</td>
@@ -76,5 +76,16 @@
     {% endfor %}
   </tbody>
 </table>
-
+<p style="text-align: center;" >
+  
+</p>
+<p style="text-align: center;" >
+  {% if gamesEstoque.has_prev %}
+    <a href="{{url_for('estoque', page=gamesEstoque.prev_num)}}"><< Anterior</a>
+  {% endif %}
+  <!-- se houver proxumos registros -->
+   {% if gamesEstoque.has_next %}
+    <a href="{{url_for('estoque', page=gamesEstoque.next_num)}}">Próximo >></a>
+   {% endif %}
+</p>
 {% endblock content %}
