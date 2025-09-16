@@ -83,7 +83,8 @@ def init_app(app):
             g.quantidade = request.form['quantidade']
             db.session.commit()
             return redirect(url_for('gamesEstoque'))
-        return render_template('editgame.html', g=g)
+        consoles = Console.query.all()
+        return render_template('editgame.html', g=g, consoles=consoles)
 
     # CRUD CONSOLES - LISTAGEM, CADASTRO E EXCLUSÃO
     @app.route('/consoles/estoque', methods=['GET', 'POST'])
