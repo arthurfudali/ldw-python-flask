@@ -51,7 +51,7 @@ def init_app(app):
         # Cadastra um novo jogo
         if request.method == 'POST':
             newgame = Game(request.form['titulo'], request.form['ano'], request.form['categoria'],
-                           request.form['preco'], request.form['quantidade'])
+                           request.form['preco'], request.form['quantidade'], request.form['console'])
             db.session.add(newgame)
             db.session.commit()
             return redirect(url_for('gamesEstoque'))
