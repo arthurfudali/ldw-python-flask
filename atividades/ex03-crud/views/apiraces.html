@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-5">
+
+  <!-- Título -->
+  <h1 class="fw-bold text-center text-danger mb-4">🏎️ Corridas de Fórmula 1</h1>
+
+  <!-- Tabela de corridas -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+      <h2 class="h5 mb-0">Calendário de Corridas</h2>
+    </div>
+    <div class="container my-4">
+    <form method="get" action="{{ url_for('apiRaces') }}" class="row g-2 justify-content-center">
+      <div class="col-auto">
+        <label for="year" class="form-label mt-1 fw-bold">Temporada</label>
+      </div>
+      <div class="col-auto">
+        <select name="year" class="form-select">
+          {% for y in range((curYear-5), (curYear+1)) %}
+            <option value="{{ y }}" {% if y == year %}selected{% endif %}>
+              {{ y }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-danger">Filtrar</button>
+      </div>
+    </form>
+</div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-danger">
+          <tr>
+            <th>Data</th>
+            <th>Grande Prêmio</th>
+            <th>Circuito</th>
+            <th>Status</th>
+            <th>Vencedor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for race in races %}
+          <tr>
+            <td>{{ race.startDate[:10] }}</td>
+            <td>{{ race.gPrx }}</td>
+            <td>{{ race.crct }}</td>
+            <td>
+              <span class="badge {% if race.status.detail == 'Finalizada' %}bg-success{% elif race.status.detail == 'Em andamento' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                {{ race.status.detail }}
+              </span>
+            </td>
+            <td>
+              {% if race.winner %}
+                <span class="fw-semibold text-success">{{ race.winner }}</span>
+              {% else %}
+                <span class="text-muted fst-italic">N/A</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" class="text-center text-muted fst-italic">
+              Nenhuma corrida disponível no momento.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
