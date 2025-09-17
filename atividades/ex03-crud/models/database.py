@@ -31,15 +31,3 @@ class Car(db.Model):
         self.power = power
         self.category = category
         self.driver_id = driver_id
-
-    
-
-
-""" 
-<th>Modelo</th>
-            <th>Ano</th>
-            <th>Fabricante</th>
-            <th>Potência</th>
-            <th>Categoria</th>
-
- """

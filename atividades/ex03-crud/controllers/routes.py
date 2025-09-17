@@ -64,7 +64,7 @@ def init_app(app):
             return redirect(url_for('newCar'))
             
         if request.method == 'POST':
-            newcar = Car(request.form['model'], request.form['year'], request.form['manufacturer'], request.form['category'], request.form['power'], request.form['driver_id'])
+            newcar = Car(request.form['model'], request.form['year'], request.form['manufacturer'], request.form['power'], request.form['category'], request.form['driver_id'])
             db.session.add(newcar)
             db.session.commit()
             return redirect(url_for('newCar'))
@@ -99,6 +99,8 @@ def init_app(app):
         }
         response = requests.get(url, headers=headers, params=querystring)
         races_data = response.json()
+        print(response.text)
+
         
         # "flatten" o dicionário em uma lista de corridas
         races = []
