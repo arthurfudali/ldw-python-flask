@@ -13,10 +13,6 @@ load_dotenv()
 api_key = os.getenv("KEY")
 
 def init_app(app):
-    # inclusao e exibicao de dados na pagina atraves de uma lista
-    # drivers = ['Senna', 'Prost', 'Verstappen']
-    drivers = []
-
     @app.route('/')
     def index():
         return render_template('index.html')
@@ -51,6 +47,17 @@ def init_app(app):
             cars = Car.query.all()
 
             return render_template('drivers.html', drivers=drivers_page, cars=cars)
+    
+    @app.route('/drivers/edit/<int:id>', methods=['GET', 'POST'])
+    def editDriver(id):
+        driver = Driver.query.get(id)
+        if request.method == 'POST':
+            driver.name = request.form['name']
+            driver.cpf = request.form['cpf']
+            driver.birth = request.form['birth']
+            db.session.commit()
+            return redirect((url_for('newDriver')))
+        return render_template('editDriver.html', driver=driver)
         
 
     #CRUD carros
@@ -84,6 +91,20 @@ def init_app(app):
 
             return render_template('cars.html', cars=cars_page, drivers=drivers)
 
+    @app.route('/cars/edit/<int:id>', methods=['GET', 'POST'])
+    def editCar(id):
+        car = Car.query.get(id)
+        if request.method == 'POST':
+            car.model = request.form['model']
+            car.year = request.form['year']
+            car.manufacturer = request.form['manufacturer']
+            car.power = request.form['power']
+            car.category = request.form['category']
+            car.driver_id = request.form['driver_id']
+            db.session.commit()
+            return redirect(url_for('newCar'))
+        drivers = Driver.query.all()
+        return render_template('editCar.html', car=car, drivers=drivers)
 
     @app.route('/apiraces', methods=['GET'])
     def apiRaces():
@@ -100,8 +121,7 @@ def init_app(app):
         response = requests.get(url, headers=headers, params=querystring)
         races_data = response.json()
         print(response.text)
-
-        
+       
         # "flatten" o dicionário em uma lista de corridas
         races = []
         for date, race_list in races_data.items():
@@ -110,4 +130,3 @@ def init_app(app):
                 races.append(race)
 
         return render_template("apiraces.html", races=races, year=int(year), curYear = curYear)
-        

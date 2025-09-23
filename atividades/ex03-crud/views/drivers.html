@@ -1,34 +1,61 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="container my-5">
   <!-- Título -->
-  <h1 class="fw-bold text-center text-danger mb-4">🏎️ Pilotos Participantes</h1>
-  <hr>
+  <h1 class="fw-bold text-center text-danger mb-4">Pilotos Participantes</h1>
+  <hr />
   <!-- Lista de pilotos -->
   <div class="card shadow-sm mb-5">
     <div class="card-header bg-dark text-white">
       <h2 class="h5 mb-0">Pilotos cadastrados</h2>
     </div>
-    <table class="table table-bordered table-hover">
-      <thead class="table-dark">
-        <tr>
-          <th style="width: 50px;"></th>
+    <div class="table-responsive">
+      <table class="table table-striped aling-midle table-hover">
+        <thead class="table-danger">
+          <tr>
+            <th style="width: 50px"></th>
             <th>Nome:</th>
             <th>Carro:</th>
-            <!-- <th style="text-align: center;" colspan="2">Ação:</th> -->
-        </tr>
-      </thead>
-      <tbody>
-        {% for driver in drivers  %}
-        <tr>
-          <td></td>
-          <td>{{driver.name}}</td>
-          <td>{{driver.car.model}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for driver in drivers %}
+          <tr>
+            <td></td>
+            <td>{{driver.name}}</td>
+            <td>{{driver.car.model}}</td>
+            <td>
+              <a
+                href="{{url_for('editDriver', id=driver.id)}}"
+                class="btn btn-warning"
+                >Editar</a
+              >
+            </td>
+            <td>
+              <a
+                href="{{url_for('newDriver', id=driver.id)}}"
+                class="btn btn-danger" onclick="return confirm('Deseja mesmo excluir o piloto {{driver.name}}?')"
+                >Excluir</a
+              >
+            </td>
+            <td></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p style="text-align: center;">
+        <!-- Se houver registros anteriores -->
+        {% if drivers.has_prev %}
+            <a href="{{url_for('newDriver', page=drivers.prev_num)}}"><< Anterior</a>
+        {% endif %}
+        <!-- Se houver próximos registros -->
+        {% if drivers.has_next %}
+            <a href="{{url_for('newDriver', page=drivers.next_num)}}">Próximo >></a>
+    </p>
+        {% endif %}
+    </div>
   </div>
 
   <!-- Formulário -->
@@ -37,15 +64,35 @@
       <h3 class="h5 mb-0">Inscrições para a corrida</h3>
     </div>
     <div class="card-body">
-
       <form action="{{ url_for('newDriver') }}" method="post" class="row g-3">
         <div class="col-md-8">
           <label for="name" class="form-label">Nome do piloto</label>
-          <input type="text" class="form-control" name="name" id="name" placeholder="Digite o nome" required>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            placeholder="Digite o nome"
+            required
+          />
           <label for="cpf" class="form-label">CPF</label>
-          <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite o CPF" required>
+          <input
+            type="text"
+            class="form-control"
+            name="cpf"
+            id="cpf"
+            placeholder="Digite o CPF"
+            required
+          />
           <label for="name" class="form-label">Data de nascimento</label>
-          <input type="text" class="form-control" name="birth" id="birth" placeholder="Digite sua data de nascimento" required>
+          <input
+            type="text"
+            class="form-control"
+            name="birth"
+            id="birth"
+            placeholder="Digite sua data de nascimento"
+            required
+          />
         </div>
         <div class="col-md-4 d-flex align-items-end">
           <button type="submit" class="btn btn-danger w-100">Cadastrar</button>
@@ -53,7 +100,6 @@
       </form>
     </div>
   </div>
-
 </div>
 
 {% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-5">
+  <!-- Título -->
+  <h1 class="fw-bold text-center text-danger mb-4">🏎️ Editar Pilotos</h1>
+  <hr>
+
+  <!-- Formulário -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-danger text-white">
+      <h3 class="h5 mb-0">Inscrições para a corrida</h3>
+    </div>
+    <div class="card-body">
+
+      <form action="{{ url_for('editDriver', id=driver.id) }}" method="post" class="row g-3">
+        <div class="col-md-8">
+          <label for="name" class="form-label">Nome do piloto</label>
+          <input type="text" class="form-control" name="name" id="name" value="{{driver.name}}" required>
+          <label for="cpf" class="form-label">CPF</label>
+          <input type="text" class="form-control" name="cpf" id="cpf" value="{{driver.cpf}}" required>
+          <label for="name" class="form-label">Data de nascimento</label>
+          <input type="text" class="form-control" name="birth" id="birth" value="{{driver.birth}}" required>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <button type="submit" class="btn btn-warning w-100">Editar</button>
+          <a href="{{url_for('newDriver')}}" class="btn btn-danger">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}

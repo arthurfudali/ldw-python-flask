@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-5">
+
+  <!-- Título -->
+  <h1 class="fw-bold text-center text-danger mb-4">🚗 Editar Carro</h1>
+
+  <!-- Tabela de carros -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-header bg-dark text-white">
+      <h2 class="h5 mb-0">Carros cadastrados</h2>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-danger text-white">
+      <h3 class="h5 mb-0">Cadastre seu carro</h3>
+    </div>
+    <div class="card-body">
+      <form action="{{ url_for('editCar', id=car.id) }}" method="post" class="row g-3">
+        <div class="col-md-6">
+          <label for="model" class="form-label">Modelo</label>
+          <input type="text" class="form-control" name="model" id="model" value="{{car.model}}" required>
+        </div>
+        <div class="col-md-6">
+          <label for="year" class="form-label">Ano</label>
+          <input type="number" class="form-control" name="year" id="year" value="{{car.year}}" required>
+        </div>
+        <div class="col-md-6">
+          <label for="manufacturer" class="form-label">Fabricante</label>
+          <input type="text" class="form-control" name="manufacturer" id="manufacturer" value="{{car.manufacturer}}" required>
+        </div>
+        <div class="col-md-6">
+          <label for="power" class="form-label">Potência (cv)</label>
+          <input type="text" class="form-control" name="power" id="power" value="{{car.power}}" required>
+        </div>
+        <div class="col-md-6">
+          <label for="category" class="form-label">Categoria</label>
+          <input type="text" class="form-control" name="category" id="category" value="{{car.category}}" required>
+        </div>
+        <div class="col-md-6">
+          <label for="id" class="form-label">ID do Piloto:</label>
+          <input type="text" class="form-control" name="driver_id" id="id" value="{{car.driver.id}}" required>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-warning w-100">Alterar Carro</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
