@@ -1,8 +1,11 @@
 from flask import render_template, request, url_for, redirect, flash, session
-from models.database import db, Game, Console, Usuario
+from models.database import db, Game, Console, Usuario, Imagem
 from werkzeug.security import generate_password_hash, check_password_hash
 import urllib
 import json
+import uuid
+import os
+
 
 # Lista de jogadores
 jogadores = ['Jogador 1', 'Jogador 2', 'Jogador 3',
@@ -204,3 +207,36 @@ def init_app(app):
                 flash("Registro realizado com sucesso. Você já pode fazer o login!", 'success')
                 return redirect(url_for('login'))
         return render_template('cadUser.html')
+
+
+    FILE_TYPES = set(['png', 'jpg', 'jpeg'])
+    def arquivos_permitidos(filename):
+        return '.' in filename and filename.rsplit('.', 1)[1].lower() in FILE_TYPES
+        
+    # ROTA DE UPLOAD DE ARQUIVOS
+    @app.route('/galeria', methods=['GET', 'POST'])
+    def galeria():
+        # selecionando todas as imagens
+        images = Imagem.query.all()    
+        
+        if request.method == 'POST':
+            
+            file = request.files['file']
+            # enviando o nome do arquivo para a funcao de verificacao de tipo
+            if not arquivos_permitidos(file.filename):
+                flash("tipo de arquivo nao permitido", "danger")
+                return redirect(request.url)
+            else:
+                # salva o arquivo na pasta 
+                filename = str(uuid.uuid4())
+                #gravando no bd
+                image = Imagem(filename)
+                
+                db.session.add(image)
+                db.session.commit()
+                
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                flash("Imagem enviada com sucesso!", "success")
+                return redirect(url_for('galeria'))
+            
+        return render_template('galeria.html', images=images)

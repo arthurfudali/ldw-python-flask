@@ -17,15 +17,16 @@ routes.init_app(app)
 DB_NAME = 'thegames'
 # Configura o Flask com o banco definido
 app.config['DATABASE_NAME'] = DB_NAME
-
 # Passando o endereço do banco ao Flask
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root@localhost/{DB_NAME}'
-
 # secret para as flash messages
 app.config['SECRET_KEY'] = 'eothegames'
 # tempo de duracao da sessao
 app.config['PERMANENT_SESSION_LIFETIME'] = 1800
-
+# define a pasta que recebera ps arquivos de upload
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+# define o tamanho maximo de um arquivo (16mb)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # converte de bytes para mbs
 # Iniciando o servidor no localhost, porta 5000, modo de depuração ativado
 if __name__ == '__main__':
     # Criando os dados de conexão:
